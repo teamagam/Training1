@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DailySelfie</string>
+    <string name="activity_main_action_take_picture">Take a Picture</string>
 </resources>
