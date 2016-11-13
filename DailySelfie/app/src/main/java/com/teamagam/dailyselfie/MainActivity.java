@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Toast.makeText(this, R.string.main_activity_picture_taken, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.main_activity_picture_taken + "\n" + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
         }
     }
 
