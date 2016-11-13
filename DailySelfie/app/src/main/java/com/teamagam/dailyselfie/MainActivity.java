@@ -60,10 +60,11 @@ public class MainActivity extends AppCompatActivity {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.teamagam.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+//                Uri photoURI = FileProvider.getUriForFile(this,
+//                        "com.teamagam.fileprovider",
+//                        photoFile);
+//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI); TODO try switch to content:// URI instead of File:// URI
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Toast.makeText(this, R.string.action_take_picture, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.main_activity_picture_taken, Toast.LENGTH_LONG).show();
         }
     }
 
