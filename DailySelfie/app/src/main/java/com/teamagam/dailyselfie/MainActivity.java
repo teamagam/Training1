@@ -2,6 +2,7 @@ package com.teamagam.dailyselfie;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -55,16 +56,19 @@ public class MainActivity extends AppCompatActivity {
             File photoFile = null;
             try {
                 photoFile = createImageFile();
-            } catch (IOException ex) {
-                // TODO handle exception
+            } catch (IOException e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-//                Uri photoURI = FileProvider.getUriForFile(this,
-//                        "com.teamagam.fileprovider",
-//                        photoFile);
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI); TODO try switch to content:// URI instead of File:// URI
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Uri photoURI = FileProvider.getUriForFile(this,
+                            "com.teamagam.fileprovider",
+                            photoFile);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                } else {
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile);
+                }
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
@@ -75,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Toast.makeText(this, R.string.main_activity_picture_taken + "\n" + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.activity_main_picture_taken + "\n" + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
         }
     }
 
