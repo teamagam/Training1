@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-<!-- "Take Picture", should appear as action button if possible -->
-<item
-    android:id="@+id/action_take_picture"
-    android:icon="@drawable/ic_add_a_photo_black_24dp"
-    android:title="@string/action_take_picture"
-    app:showAsAction="ifRoom"/>
+    <!-- "Take Picture", should appear as action button-->
+    <item
+        android:id="@+id/action_take_picture"
+        android:icon="@drawable/ic_add_a_photo_black_24dp"
+        android:title="@string/activity_main_action_take_picture" />
 
 </menu>
