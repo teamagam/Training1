@@ -17,12 +17,10 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final int REQUEST_TAKE_PHOTO = 1;
-    private String mCurrentPhotoPath;
+    private static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 photoFile = createImageFile();
             } catch (IOException e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.activity_main_ioexception, Toast.LENGTH_SHORT).show();
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
@@ -80,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Toast.makeText(this, getString(R.string.activity_main_picture_taken) + "\n" + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.activity_main_picture_taken), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -95,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         );
 
         // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+//        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
 
