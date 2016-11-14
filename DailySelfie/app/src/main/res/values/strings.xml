@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">DailySelfie</string>
     <string name="activity_main_action_take_picture">Take a Picture</string>
-    <string name="activity_main_picture_taken">Picture was successfully taken.</string>
+    <string name="activity_main_picture_taken">Picture was taken successfully.</string>
 </resources>

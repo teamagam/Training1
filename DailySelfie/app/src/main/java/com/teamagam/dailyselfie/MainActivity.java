@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Toast.makeText(this, R.string.activity_main_picture_taken + "\n" + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.activity_main_picture_taken) + "\n" + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
         }
     }
 
