@@ -1,12 +1,17 @@
 package com.teamagam.dailyselfie;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,15 +35,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private List<PictureInfo> loadPictureInfoList() {
-        List<PictureInfo> pictureInfoList = Collections.emptyList();
+        List<PictureInfo> pictureInfoList = new ArrayList<>();
         File externalFilesDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         if (null != externalFilesDir) {
             File[] files = externalFilesDir.listFiles();
             if (null != files) {
-                for (int i = 0; i < files.length; i++) {
+                for (File file : files) {
                     PictureInfo pictureInfo = new PictureInfo();
-                    pictureInfo.mPath = files[i].getPath();
-                    pictureInfo.mFileName = files[i].getName();
+                    pictureInfo.mPath = file.getAbsolutePath();
+                    pictureInfo.mFileName = file.getName();
                     pictureInfoList.add(pictureInfo);
                 }
             }
