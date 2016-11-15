@@ -1,6 +1,7 @@
 package com.teamagam.dailyselfie;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,41 +13,40 @@ import java.util.Collections;
 import java.util.List;
 
 class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHolder> {
-    private LayoutInflater inflater;
-    private List<Picture> data = Collections.emptyList();
+    private LayoutInflater mInflater;
+    private List<PictureInfo> mPictureInfoList = Collections.emptyList();
 
-    PictureAdapter(Context context, List<Picture> data) {
-        inflater = LayoutInflater.from(context);
-        this.data = data;
+    PictureAdapter(Context context, List<PictureInfo> pictureInfoList) {
+        mInflater = LayoutInflater.from(context);
+        mPictureInfoList = pictureInfoList;
     }
 
     @Override
     public PictureViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.layout_picture, parent, false);
-        PictureViewHolder holder = new PictureViewHolder(view);
-        return holder;
+        View view = mInflater.inflate(R.layout.layout_picture, parent, false);
+        return new PictureViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PictureViewHolder holder, int position) {
-        Picture cur = data.get(position);
-        holder.picture.setImageResource(cur.image);
-        holder.pictureName.setText(cur.fileName);
+    public void onBindViewHolder(PictureViewHolder pictureViewHolder, int position) {
+        PictureInfo pictureInfo = mPictureInfoList.get(position);
+        pictureViewHolder.mImageView.setImageBitmap(BitmapFactory.decodeFile(pictureInfo.mPath));
+        pictureViewHolder.mTextView.setText(pictureInfo.mFileName);
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return mPictureInfoList.size();
     }
 
     class PictureViewHolder extends RecyclerView.ViewHolder {
-        ImageView picture;
-        TextView pictureName;
+        ImageView mImageView;
+        TextView mTextView;
 
         PictureViewHolder(View itemView) {
             super(itemView);
-            picture = (ImageView) itemView.findViewById(R.id.ivItemListImage);
-            pictureName = (TextView) itemView.findViewById(R.id.tvItemListImage);
+            mImageView = (ImageView) itemView.findViewById(R.id.ivItemListImage);
+            mTextView = (TextView) itemView.findViewById(R.id.tvItemListImage);
         }
     }
 }
