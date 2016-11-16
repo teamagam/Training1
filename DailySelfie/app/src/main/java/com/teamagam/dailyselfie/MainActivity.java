@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
             if (null != files) {
                 for (File file : files) {
                     PictureInfo pictureInfo = new PictureInfo();
-                    pictureInfo.mPath = file.getAbsolutePath();
-                    pictureInfo.mFileName = file.getName();
+                    pictureInfo.path = file.getAbsolutePath();
+                    pictureInfo.fileName = file.getName();
                     pictureInfoList.add(pictureInfo);
                 }
             }
