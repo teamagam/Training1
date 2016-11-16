@@ -9,12 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Collections;
 import java.util.List;
 
 class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHolder> {
     private LayoutInflater mInflater;
-    private List<PictureInfo> mPictureInfoList = Collections.emptyList();
+    private List<PictureInfo> mPictureInfoList;
 
     PictureAdapter(Context context, List<PictureInfo> pictureInfoList) {
         mInflater = LayoutInflater.from(context);
@@ -30,8 +29,8 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
     @Override
     public void onBindViewHolder(PictureViewHolder pictureViewHolder, int position) {
         PictureInfo pictureInfo = mPictureInfoList.get(position);
-        pictureViewHolder.mImageView.setImageBitmap(BitmapFactory.decodeFile(pictureInfo.mPath));
-        pictureViewHolder.mTextView.setText(pictureInfo.mFileName);
+        pictureViewHolder.mImageView.setImageBitmap(BitmapFactory.decodeFile(pictureInfo.path));
+        pictureViewHolder.mTextView.setText(pictureInfo.fileName);
     }
 
     @Override

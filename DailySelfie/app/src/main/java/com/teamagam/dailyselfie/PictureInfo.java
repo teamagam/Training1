@@ -1,6 +1,6 @@
 package com.teamagam.dailyselfie;
 
 class PictureInfo {
-    String mPath;
-    String mFileName;
+    String path;
+    String fileName;
 }
