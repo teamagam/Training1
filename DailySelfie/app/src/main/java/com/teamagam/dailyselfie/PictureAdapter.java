@@ -29,8 +29,8 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
     @Override
     public void onBindViewHolder(PictureViewHolder pictureViewHolder, int position) {
         PictureInfo pictureInfo = mPictureInfoList.get(position);
-        pictureViewHolder.mImageView.setImageBitmap(BitmapFactory.decodeFile(pictureInfo.path));
         pictureViewHolder.mTextView.setText(pictureInfo.fileName);
+        new LoadPictureTask(pictureViewHolder.mImageView).execute(pictureInfo.path);
     }
 
     @Override
