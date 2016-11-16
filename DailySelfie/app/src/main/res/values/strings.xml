@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DailySelfie</string>
+    <string name="activity_main_nullexception">Failed loading files</string>
 </resources>

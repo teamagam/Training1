@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,19 +32,28 @@ public class MainActivity extends AppCompatActivity {
 
     private List<PictureInfo> loadPictureInfoList() {
         List<PictureInfo> pictureInfoList = new ArrayList<>();
-        File externalFilesDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        if (null != externalFilesDir) {
-            File[] files = externalFilesDir.listFiles();
-            if (null != files) {
-                for (File file : files) {
-                    PictureInfo pictureInfo = new PictureInfo();
-                    pictureInfo.path = file.getAbsolutePath();
-                    pictureInfo.fileName = file.getName();
-                    pictureInfoList.add(pictureInfo);
-                }
-            }
+        File[] files = getFilesListFromDir();
+        for (File file : files) {
+            pictureInfoList.add(pictureInfoFromFile(file));
         }
         return pictureInfoList;
+    }
+
+    private File[] getFilesListFromDir() {
+        File externalFilesDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        if (null != externalFilesDir) {
+            return externalFilesDir.listFiles();
+        } else {
+            Toast.makeText(this, getString(R.string.activity_main_nullexception), Toast.LENGTH_SHORT).show();
+            return new File[0];
+        }
+    }
+
+    private PictureInfo pictureInfoFromFile(File file) {
+        PictureInfo pictureInfo = new PictureInfo();
+        pictureInfo.path = file.getAbsolutePath();
+        pictureInfo.fileName = file.getName();
+        return pictureInfo;
     }
 
 }
