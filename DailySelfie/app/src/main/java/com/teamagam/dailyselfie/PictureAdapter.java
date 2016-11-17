@@ -12,10 +12,12 @@ import android.widget.TextView;
 import java.util.List;
 
 class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHolder> {
+    private final Context mContext;
     private LayoutInflater mInflater;
     private List<PictureInfo> mPictureInfoList;
 
     PictureAdapter(Context context, List<PictureInfo> pictureInfoList) {
+        mContext = context;
         mInflater = LayoutInflater.from(context);
         mPictureInfoList = pictureInfoList;
     }
@@ -30,7 +32,7 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
     public void onBindViewHolder(PictureViewHolder pictureViewHolder, int position) {
         PictureInfo pictureInfo = mPictureInfoList.get(position);
         pictureViewHolder.mTextView.setText(pictureInfo.fileName);
-        new LoadPictureTask(pictureViewHolder.mImageView).execute(pictureInfo.path);
+        new LoadPictureTask(mContext ,pictureViewHolder.mImageView).execute(pictureInfo.path);
     }
 
     @Override
