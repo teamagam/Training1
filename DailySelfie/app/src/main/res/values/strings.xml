@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">DailySelfie</string>
     <string name="activity_main_nullexception">Failed loading files</string>
+    <string name="activity_main_action_take_picture">Take a Picture</string>
+    <string name="activity_main_picture_taken">Picture was taken successfully.</string>
+    <string name="activity_main_ioexception">File creation failed.</string>
 </resources>
