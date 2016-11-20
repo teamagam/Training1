@@ -1,7 +1,6 @@
 package com.teamagam.dailyselfie;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +28,18 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
     @Override
     public void onBindViewHolder(PictureViewHolder pictureViewHolder, int position) {
         PictureInfo pictureInfo = mPictureInfoList.get(position);
-        pictureViewHolder.mImageView.setImageBitmap(BitmapFactory.decodeFile(pictureInfo.path));
         pictureViewHolder.mTextView.setText(pictureInfo.fileName);
+        int imageSize = pictureViewHolder.mImageView
+                .getContext()
+                .getApplicationContext()
+                .getResources()
+                .getInteger(R.integer.activity_main_thumbnail_size);
+        if (null != pictureViewHolder.mLoadPictureTask) {
+            pictureViewHolder.mLoadPictureTask.cancel(true);
+        }
+        pictureViewHolder.mImageView.setVisibility(View.INVISIBLE);
+        pictureViewHolder.mLoadPictureTask = new LoadPictureTask(pictureViewHolder.mImageView, imageSize);
+        pictureViewHolder.mLoadPictureTask.execute(pictureInfo.path);
     }
 
     @Override
@@ -41,6 +50,7 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
     class PictureViewHolder extends RecyclerView.ViewHolder {
         ImageView mImageView;
         TextView mTextView;
+        LoadPictureTask mLoadPictureTask;
 
         PictureViewHolder(View itemView) {
             super(itemView);
