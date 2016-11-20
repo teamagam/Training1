@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="thumbnail_size">64</integer>
+    <integer name="activity_main_thumbnail_size">64</integer>
 </resources>

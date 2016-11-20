@@ -1,6 +1,5 @@
 package com.teamagam.dailyselfie;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
@@ -10,25 +9,24 @@ import android.widget.ImageView;
 import java.lang.ref.WeakReference;
 
 class LoadPictureTask extends AsyncTask<String, Void, Bitmap> {
-    private final Context mContext;
     private final WeakReference<ImageView> mImageViewReference;
+    private final int mImageSize;
 
-    LoadPictureTask(Context context, ImageView imageView) {
+    LoadPictureTask(ImageView imageView, int imageSize) {
         // Use a WeakReference to ensure the ImageView can be garbage collected
-        mContext = context;
         mImageViewReference = new WeakReference<>(imageView);
+        mImageSize = imageSize;
     }
 
     @Override
     protected Bitmap doInBackground(String... params) {
         String path = params[0];
-        int thumbnailSize = mContext.getResources().getInteger(R.integer.thumbnail_size);
-        return decodeSampledBitmapFromFile(path, thumbnailSize, thumbnailSize);
+        return decodeSampledBitmapFromFile(path, mImageSize, mImageSize);
     }
 
     @Override
     protected void onPostExecute(Bitmap bitmap) {
-        if (mImageViewReference != null && bitmap != null) {
+        if (mImageViewReference.get() != null && bitmap != null) {
             final ImageView imageView = mImageViewReference.get();
             if (imageView != null) {
                 imageView.setImageBitmap(bitmap);
