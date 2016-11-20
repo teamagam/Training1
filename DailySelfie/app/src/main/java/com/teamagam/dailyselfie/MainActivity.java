@@ -1,5 +1,6 @@
 package com.teamagam.dailyselfie;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -13,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -133,6 +135,14 @@ public class MainActivity extends AppCompatActivity {
         pictureInfo.path = file.getAbsolutePath();
         pictureInfo.fileName = file.getName();
         return pictureInfo;
+    }
+
+    private void enlargePicture(String path) {
+        final Dialog enlargePictureDialog = new Dialog(this);
+        enlargePictureDialog.setContentView(R.layout.layout_dialog_picture_enlarge);
+        ImageView enlargePictureImageView = (ImageView) enlargePictureDialog.findViewById(R.id.fragment_dialog_large_image);
+        new LoadPictureTask(enlargePictureImageView).execute(path);
+        enlargePictureDialog.show();
     }
 
 }

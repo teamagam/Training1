@@ -34,12 +34,12 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
                 .getApplicationContext()
                 .getResources()
                 .getInteger(R.integer.activity_main_thumbnail_size);
-        if (null != pictureViewHolder.mLoadPictureTask) {
-            pictureViewHolder.mLoadPictureTask.cancel(true);
+        if (null != pictureViewHolder.mLoadThumbnailTask) {
+            pictureViewHolder.mLoadThumbnailTask.cancel(true);
         }
         pictureViewHolder.mImageView.setVisibility(View.INVISIBLE);
-        pictureViewHolder.mLoadPictureTask = new LoadPictureTask(pictureViewHolder.mImageView, imageSize);
-        pictureViewHolder.mLoadPictureTask.execute(pictureInfo.path);
+        pictureViewHolder.mLoadThumbnailTask = new LoadThumbnailTask(pictureViewHolder.mImageView, imageSize);
+        pictureViewHolder.mLoadThumbnailTask.execute(pictureInfo.path);
     }
 
     @Override
@@ -50,7 +50,7 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
     class PictureViewHolder extends RecyclerView.ViewHolder {
         ImageView mImageView;
         TextView mTextView;
-        LoadPictureTask mLoadPictureTask;
+        LoadThumbnailTask mLoadThumbnailTask;
 
         PictureViewHolder(View itemView) {
             super(itemView);
