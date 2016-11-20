@@ -3,25 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:ignore="UseCompoundDrawables">
 
     <ImageView
         android:id="@+id/ivItemListImage"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="1dp"
+        android:layout_margin="@dimen/layout_margin_internal"
         android:adjustViewBounds="true"
         tools:src="@mipmap/ic_launcher"
         tools:ignore="ContentDescription"/>
 
     <TextView
         android:id="@+id/tvItemListImage"
-        android:layout_width="0dp"
-        android:layout_weight="4"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="@dimen/font_normal"
+        android:layout_marginStart="@dimen/layout_margin_image_text_separator"
+        android:textSize="@dimen/activity_font_normal"
         tools:text="This is sample very long and boring text.jpg"/>
 
 </LinearLayout>
