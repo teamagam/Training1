@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.os.AsyncTask;
+import android.view.View;
 import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
@@ -30,6 +31,7 @@ class LoadPictureTask extends AsyncTask<String, Void, Bitmap> {
             final ImageView imageView = mImageViewReference.get();
             if (imageView != null) {
                 imageView.setImageBitmap(bitmap);
+                imageView.setVisibility(View.VISIBLE);
             }
         }
     }
