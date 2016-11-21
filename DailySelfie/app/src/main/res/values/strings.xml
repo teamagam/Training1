@@ -4,4 +4,7 @@
     <string name="activity_main_action_take_picture">Take a Picture</string>
     <string name="activity_main_picture_taken">Picture was taken successfully.</string>
     <string name="activity_main_ioexception">File creation failed.</string>
+    <string name="notification_daily_text_ticker">It\'s Time to Daily Selfie!</string>
+    <string name="notification_daily_title_content">DailySelfie</string>
+    <string name="notification_daily_text_content">It is now time to take your daily selfie. Click to start application.</string>
 </resources>

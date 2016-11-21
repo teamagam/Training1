@@ -1,5 +1,9 @@
 package com.teamagam.dailyselfie;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -133,6 +137,34 @@ public class MainActivity extends AppCompatActivity {
         pictureInfo.path = file.getAbsolutePath();
         pictureInfo.fileName = file.getName();
         return pictureInfo;
+    }
+
+    private void notifyDailyNotification() {
+        final int MY_NOTIFICATION_ID = 0;
+        long[] vibratePattern = { 0, 200, 200, 300 };
+        Intent notificationIntent = new Intent(getApplicationContext(),
+                MainActivity.class);
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0,
+                notificationIntent, 0);
+
+
+
+        Notification.Builder notificationBuilder = new Notification.Builder(
+                getApplicationContext())
+                .setTicker(getString(R.string.notification_daily_text_ticker))
+                .setSmallIcon(R.drawable.ic_add_a_photo_black_24dp)
+                .setAutoCancel(true)
+                .setContentTitle(getString(R.string.notification_daily_title_content))
+                .setContentText(getString(R.string.notification_daily_text_content))
+                .setContentIntent(contentIntent)
+                .setVibrate(vibratePattern);
+
+        // Pass the Notification to the NotificationManager:
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(MY_NOTIFICATION_ID,
+                notificationBuilder.build());
+
     }
 
 }
