@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         initRecyclerView();
-        File[] files = getFilesListFromDir();
-        enlargePicture(files[0].getAbsolutePath());
     }
 
     @Override
