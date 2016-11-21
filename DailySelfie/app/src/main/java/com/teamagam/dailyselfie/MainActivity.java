@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
@@ -28,10 +29,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final long[] VIBRATE_PATTERN = {0, 200, 200, 300};
+    private final int DAILY_NOTIFICATION_ID = 0;
+
+    private static final int REQUEST_TAKE_PHOTO = 1;
+
     private PictureAdapter mPictureAdapter;
     private RecyclerView mRecyclerView;
 
-    private static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_take_picture:
                 dispatchTakePictureIntent();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -140,16 +144,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void notifyDailyNotification() {
-        final int MY_NOTIFICATION_ID = 0;
-        long[] vibratePattern = { 0, 200, 200, 300 };
-        Intent notificationIntent = new Intent(getApplicationContext(),
-                MainActivity.class);
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0,
-                notificationIntent, 0);
-
-
-
         Notification.Builder notificationBuilder = new Notification.Builder(
                 getApplicationContext())
                 .setTicker(getString(R.string.notification_daily_text_ticker))
@@ -157,14 +151,23 @@ public class MainActivity extends AppCompatActivity {
                 .setAutoCancel(true)
                 .setContentTitle(getString(R.string.notification_daily_title_content))
                 .setContentText(getString(R.string.notification_daily_text_content))
-                .setContentIntent(contentIntent)
-                .setVibrate(vibratePattern);
+                .setContentIntent(createDailySelfiePendingIntent())
+                .setVibrate(VIBRATE_PATTERN);
 
-        // Pass the Notification to the NotificationManager:
+        notifyNotification(notificationBuilder.build());
+    }
+
+    private PendingIntent createDailySelfiePendingIntent() {
+        Intent dailySelfieIntent = new Intent(getApplicationContext(),
+                MainActivity.class);
+        dailySelfieIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return PendingIntent.getActivity(getApplicationContext(), 0,
+                dailySelfieIntent, 0);
+    }
+
+    private void notifyNotification(Notification notification) {
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(MY_NOTIFICATION_ID,
-                notificationBuilder.build());
-
+        mNotificationManager.notify(DAILY_NOTIFICATION_ID, notification);
     }
 
 }
