@@ -2,7 +2,6 @@ package com.teamagam.dailyselfie;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
