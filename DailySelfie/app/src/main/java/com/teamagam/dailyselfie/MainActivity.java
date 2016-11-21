@@ -137,12 +137,4 @@ public class MainActivity extends AppCompatActivity {
         return pictureInfo;
     }
 
-    private void enlargePicture(String path) {
-        final Dialog enlargePictureDialog = new Dialog(this);
-        enlargePictureDialog.setContentView(R.layout.layout_dialog_picture_enlarge);
-        ImageView enlargePictureImageView = (ImageView) enlargePictureDialog.findViewById(R.id.fragment_dialog_large_image);
-        new LoadPictureTask(enlargePictureImageView).execute(path);
-        enlargePictureDialog.show();
-    }
-
 }
