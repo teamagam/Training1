@@ -11,18 +11,25 @@ import android.widget.TextView;
 import java.util.List;
 
 class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHolder> {
+    private Context mContext;
     private LayoutInflater mInflater;
     private List<PictureInfo> mPictureInfoList;
+    private int mImageSize;
 
     PictureAdapter(Context context, List<PictureInfo> pictureInfoList) {
+        mContext = context;
         mInflater = LayoutInflater.from(context);
         mPictureInfoList = pictureInfoList;
+        mImageSize = mContext
+                .getApplicationContext()
+                .getResources()
+                .getInteger(R.integer.activity_main_thumbnail_size);
     }
 
     @Override
     public PictureViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.layout_picture, parent, false);
-        return new PictureViewHolder(view);
+        return new PictureViewHolder(view, mImageSize);
     }
 
     @Override
@@ -41,16 +48,11 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
         private LoadThumbnailTask mLoadThumbnailTask;
         private int mImageSize;
 
-        PictureViewHolder(View itemView) {
+        PictureViewHolder(View itemView, int imageSize) {
             super(itemView);
-            //TODO solve this stupid issue
-            mImageSize = mImageView
-                    .getContext()
-                    .getApplicationContext()
-                    .getResources()
-                    .getInteger(R.integer.activity_main_thumbnail_size);
             mImageView = (ImageView) itemView.findViewById(R.id.ivItemListImage);
             mTextView = (TextView) itemView.findViewById(R.id.tvItemListImage);
+            mImageSize = imageSize;
         }
 
         void setPictureInfo(PictureInfo pictureInfo) {
