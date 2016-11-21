@@ -27,19 +27,7 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
 
     @Override
     public void onBindViewHolder(PictureViewHolder pictureViewHolder, int position) {
-        PictureInfo pictureInfo = mPictureInfoList.get(position);
-        pictureViewHolder.mTextView.setText(pictureInfo.fileName);
-        int imageSize = pictureViewHolder.mImageView
-                .getContext()
-                .getApplicationContext()
-                .getResources()
-                .getInteger(R.integer.activity_main_thumbnail_size);
-        if (null != pictureViewHolder.mLoadThumbnailTask) {
-            pictureViewHolder.mLoadThumbnailTask.cancel(true);
-        }
-        pictureViewHolder.mImageView.setVisibility(View.INVISIBLE);
-        pictureViewHolder.mLoadThumbnailTask = new LoadThumbnailTask(pictureViewHolder.mImageView, imageSize);
-        pictureViewHolder.mLoadThumbnailTask.execute(pictureInfo.path);
+        pictureViewHolder.setPictureInfo(mPictureInfoList.get(position));
     }
 
     @Override
@@ -48,14 +36,43 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
     }
 
     class PictureViewHolder extends RecyclerView.ViewHolder {
-        ImageView mImageView;
-        TextView mTextView;
-        LoadThumbnailTask mLoadThumbnailTask;
+        private ImageView mImageView;
+        private TextView mTextView;
+        private LoadThumbnailTask mLoadThumbnailTask;
+        private int mImageSize;
 
         PictureViewHolder(View itemView) {
             super(itemView);
+            //TODO solve this stupid issue
+            mImageSize = mImageView
+                    .getContext()
+                    .getApplicationContext()
+                    .getResources()
+                    .getInteger(R.integer.activity_main_thumbnail_size);
             mImageView = (ImageView) itemView.findViewById(R.id.ivItemListImage);
             mTextView = (TextView) itemView.findViewById(R.id.tvItemListImage);
+        }
+
+        void setPictureInfo(PictureInfo pictureInfo) {
+            cancelLoadThumbnailTask();
+            setText(pictureInfo.fileName);
+            setPicture(pictureInfo.path);
+        }
+
+        private void cancelLoadThumbnailTask() {
+            if (null != mLoadThumbnailTask) {
+                mLoadThumbnailTask.cancel(true);
+            }
+        }
+
+        private void setText(String fileName) {
+            mTextView.setText(fileName);
+        }
+
+        private void setPicture(String path) {
+            mImageView.setVisibility(View.INVISIBLE);
+            mLoadThumbnailTask = new LoadThumbnailTask(mImageView, mImageSize);
+            mLoadThumbnailTask.execute(path);
         }
     }
 }
