@@ -1,6 +1,5 @@
 package com.teamagam.dailyselfie;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -44,11 +43,7 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
     }
 
     private void enlargePicture(String path) {
-        final Dialog enlargePictureDialog = new Dialog(mContext);
-        enlargePictureDialog.setContentView(R.layout.layout_dialog_picture_enlarge);
-        ImageView enlargePictureImageView = (ImageView) enlargePictureDialog.findViewById(R.id.fragment_dialog_large_image);
-        new LoadPictureTask(enlargePictureImageView).execute(path);
-        enlargePictureDialog.show();
+        new EnlargePictureDialog(mContext, path).show();
     }
 
     class PictureViewHolder extends RecyclerView.ViewHolder {
@@ -84,12 +79,17 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
             mImageView.setVisibility(View.INVISIBLE);
             mLoadThumbnailTask = new LoadThumbnailTask(mImageView, mImageSize);
             mLoadThumbnailTask.execute(path);
+            setOnClickListener(path);
+        }
+
+        private void setOnClickListener(final String path) {
             mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    enlargePicture(pictureInfo.path);
+                    enlargePicture(path);
                 }
             });
         }
+
     }
 }
