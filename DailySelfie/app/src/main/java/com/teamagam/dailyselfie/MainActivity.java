@@ -135,4 +135,8 @@ public class MainActivity extends AppCompatActivity {
         return pictureInfo;
     }
 
+    private void enlargePicture(String path) {
+        new EnlargePictureDialog(this, path).show();
+    }
+
 }
