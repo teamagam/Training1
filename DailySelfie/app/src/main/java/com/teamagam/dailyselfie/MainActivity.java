@@ -158,8 +158,7 @@ public class MainActivity extends AppCompatActivity {
     private PendingIntent createDailySelfiePendingIntent() {
         Intent dailySelfieIntent = new Intent(getApplicationContext(),
                 MainActivity.class);
-        dailySelfieIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        return PendingIntent.getActivity(getApplicationContext(), 0,
+        return PendingIntent.getActivity(getApplicationContext(), DAILY_NOTIFICATION_ID,
                 dailySelfieIntent, 0);
     }
 
