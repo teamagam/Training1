@@ -10,15 +10,22 @@ import android.os.SystemClock;
 import java.util.Calendar;
 
 class AlarmUtils {
+    private static final long INITIAL_DELAY_IN_MILLIS = 10 * 1000;
+    private static final long REPEATING_DELAY_IN_MILLIS = 2 * 5 * 1000;
+    private static final int CHOSEN_HOUR_FOR_NOTIFICATION = 18;
+
     static void setDaily(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         PendingIntent pendingAlarmIntent = getPendingAlarmIntent(context);
 
+        // Clarification: notification timing varies in order to test it without
+        // needing to wait until the day after
+
 //            Calendar calendar = getTiming();
 //            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingAlarmIntent);
 
-        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 10000, 60000, pendingAlarmIntent);
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + INITIAL_DELAY_IN_MILLIS, REPEATING_DELAY_IN_MILLIS, pendingAlarmIntent);
     }
 
     private static PendingIntent getPendingAlarmIntent(Context context) {
@@ -29,7 +36,7 @@ class AlarmUtils {
     private static Calendar getTiming() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 18);
+        calendar.set(Calendar.HOUR_OF_DAY, CHOSEN_HOUR_FOR_NOTIFICATION);
         return calendar;
     }
 

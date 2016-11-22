@@ -27,7 +27,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_TAKE_PHOTO = 1;
-    private static final String PREFERENCE_FIRST_RUN = "first_run";
 
     private PictureAdapter mPictureAdapter;
     private RecyclerView mRecyclerView;
@@ -36,20 +35,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setAlarmInFirstRun();
-    }
-
-    private void setAlarmInFirstRun() {
-        if (isFirstRun()) {
-            AlarmUtils.setDaily(this);
-        }
-    }
-
-    private boolean isFirstRun() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean firstRun = sharedPreferences.getBoolean(PREFERENCE_FIRST_RUN, true);
-        sharedPreferences.edit().putBoolean(PREFERENCE_FIRST_RUN, false).apply();
-        return firstRun;
     }
 
     @Override
