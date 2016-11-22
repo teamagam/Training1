@@ -18,7 +18,7 @@ class AlarmUtils {
 //            Calendar calendar = getTiming();
 //            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingAlarmIntent);
 
-        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 5000, 20000, pendingAlarmIntent);
+        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 10000, 60000, pendingAlarmIntent);
     }
 
     private static PendingIntent getPendingAlarmIntent(Context context) {
