@@ -79,10 +79,10 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
             mImageView.setVisibility(View.INVISIBLE);
             mLoadThumbnailTask = new LoadThumbnailTask(mImageView, mImageSize);
             mLoadThumbnailTask.execute(path);
-            setOnClickListener(path);
+            setEnlargePictureCLickListener(path);
         }
 
-        private void setOnClickListener(final String path) {
+        private void setEnlargePictureCLickListener(final String path) {
             mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
