@@ -1,14 +1,12 @@
 package com.teamagam.dailyselfie;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +15,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
@@ -29,13 +26,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int DAILY_NOTIFICATION_ID = 0;
-
     private static final int REQUEST_TAKE_PHOTO = 1;
 
     private PictureAdapter mPictureAdapter;
     private RecyclerView mRecyclerView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,31 +134,6 @@ public class MainActivity extends AppCompatActivity {
         pictureInfo.path = file.getAbsolutePath();
         pictureInfo.fileName = file.getName();
         return pictureInfo;
-    }
-
-    private Notification buildDailyNotification() {
-        Notification.Builder notificationBuilder = new Notification.Builder(
-                getApplicationContext())
-                .setTicker(getString(R.string.notification_daily_text_ticker))
-                .setSmallIcon(R.drawable.ic_add_a_photo_black_24dp)
-                .setAutoCancel(true)
-                .setContentTitle(getString(R.string.notification_daily_title_content))
-                .setContentText(getString(R.string.notification_daily_text_content))
-                .setContentIntent(createDailySelfiePendingIntent());
-
-        return notificationBuilder.build();
-    }
-
-    private PendingIntent createDailySelfiePendingIntent() {
-        Intent dailySelfieIntent = new Intent(getApplicationContext(),
-                MainActivity.class);
-        return PendingIntent.getActivity(getApplicationContext(), DAILY_NOTIFICATION_ID,
-                dailySelfieIntent, 0);
-    }
-
-    private void notifyNotification(Notification notification) {
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(DAILY_NOTIFICATION_ID, notification);
     }
 
 }
