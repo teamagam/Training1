@@ -29,7 +29,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final long[] VIBRATE_PATTERN = {0, 200, 200, 300};
     private final int DAILY_NOTIFICATION_ID = 0;
 
     private static final int REQUEST_TAKE_PHOTO = 1;
@@ -143,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         return pictureInfo;
     }
 
-    private void notifyDailyNotification() {
+    private Notification buildDailyNotification() {
         Notification.Builder notificationBuilder = new Notification.Builder(
                 getApplicationContext())
                 .setTicker(getString(R.string.notification_daily_text_ticker))
@@ -151,10 +150,9 @@ public class MainActivity extends AppCompatActivity {
                 .setAutoCancel(true)
                 .setContentTitle(getString(R.string.notification_daily_title_content))
                 .setContentText(getString(R.string.notification_daily_text_content))
-                .setContentIntent(createDailySelfiePendingIntent())
-                .setVibrate(VIBRATE_PATTERN);
+                .setContentIntent(createDailySelfiePendingIntent());
 
-        notifyNotification(notificationBuilder.build());
+        return notificationBuilder.build();
     }
 
     private PendingIntent createDailySelfiePendingIntent() {
