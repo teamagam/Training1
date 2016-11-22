@@ -42,6 +42,10 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
         return mPictureInfoList.size();
     }
 
+    private void enlargePicture(String path) {
+        new EnlargePictureDialog(mContext, path).show();
+    }
+
     class PictureViewHolder extends RecyclerView.ViewHolder {
         private ImageView mImageView;
         private TextView mTextView;
@@ -75,6 +79,17 @@ class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHold
             mImageView.setVisibility(View.INVISIBLE);
             mLoadThumbnailTask = new LoadThumbnailTask(mImageView, mImageSize);
             mLoadThumbnailTask.execute(path);
+            setEnlargePictureCLickListener(path);
         }
+
+        private void setEnlargePictureCLickListener(final String path) {
+            mImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    enlargePicture(path);
+                }
+            });
+        }
+
     }
 }
