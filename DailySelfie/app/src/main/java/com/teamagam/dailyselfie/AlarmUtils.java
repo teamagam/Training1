@@ -11,7 +11,7 @@ import java.util.Calendar;
 
 class AlarmUtils {
     private static final long INITIAL_DELAY_IN_MILLIS = 10 * 1000;
-    private static final long REPEATING_DELAY_IN_MILLIS = 2 * 5 * 1000;
+    private static final long REPEATING_DELAY_IN_MILLIS = 2 * 60 * 1000;
     private static final int CHOSEN_HOUR_FOR_NOTIFICATION = 18;
 
     static void setDaily(Context context) {
